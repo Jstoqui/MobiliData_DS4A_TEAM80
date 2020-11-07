@@ -45,7 +45,13 @@ python app.py
 
 ## Collaborators of the project
 
-[![](./Mobilidata_Front_End/assets/img/monica_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/0)[![](./Mobilidata_Front_End/assets/img/nicolas_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/1)[![](./Mobilidata_Front_End/assets/img/johan_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/2)[![](./Mobilidata_Front_End/assets/img/sheijer_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/3)[![](./Mobilidata_Front_End/assets/img/hector_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/4)[![](./Mobilidata_Front_End/assets/img/vicente_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/5)[![](https://sourcerer.io/fame/clmnt/huggingface/transformers/images/6)
+[![](./Mobilidata_Front_End/assets/img/monica_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/0)
+[![](./Mobilidata_Front_End/assets/img/nicolas_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/1)
+[![](./Mobilidata_Front_End/assets/img/johan_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/2)
+[![](./Mobilidata_Front_End/assets/img/sheijer_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/3)
+[![](./Mobilidata_Front_End/assets/img/hector_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/4)
+[![](./Mobilidata_Front_End/assets/img/vicente_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/5)
+[![](./Mobilidata_Front_End/assets/img/vicente_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/5)
 
 - [Vicente Castro](http://github.com)
 - [Johan Quiroga](http://github.com)
