@@ -89,6 +89,35 @@ def staked_plot_by_topology_plotly(df_volumes, fecha, direccion, hora):
     return fig
 
 
+def staked_plot_by_topology_area_plotly(df_volumes, fecha, direccion, hora):
+    '''
+    '''
+
+    areas = [1, 1.75, 1.75, 0.75, 0.33, 1.75, 2.5]
+    all_tipologies = tipologies = ["LIVIANOS", "INTERMUNICIPALES", "BUSES", "MOTOS", "BICICLETAS CALZADA", "C2 C3", ">=C4"]
+    areas_dict = dict(zip(all_tipologies, areas))
+    # Get total area by car
+    for tipo in all_tipologies:
+        df_volumes["{} AREA".format(tipo)] = df_volumes[tipo]*areas_dict[tipo]
+
+    tipologies = ["LIVIANOS AREA", "INTERMUNICIPALES AREA", "BUSES AREA", "MOTOS AREA", "BICICLETAS CALZADA AREA", "C2 C3 AREA", ">=C4 AREA"]
+
+    df_filt = df_volumes[(df_volumes["FECHA"].astype(str) == fecha) & (df_volumes["DIRECCION CATASTRO"] == direccion)]
+    total_area_per_hour = df_filt[tipologies].sum(axis=1)
+
+    layout = go.Layout(title="Proportion of area occupied by tologies along a day for {}".format(fecha), xaxis={"title": "Hour of day"})
+    fig = go.Figure(layout=layout)
+    for k, i in enumerate(tipologies):
+        fig.add_trace(go.Scatter(name=all_tipologies[k], x=df_filt["PERIODO"], y=(df_filt[i]/total_area_per_hour), mode="lines", stackgroup="one"))
+
+
+    fig.update_xaxes(
+        range=(hora[0], hora[1])
+    )
+    return fig
+
+
+
 def kpi_component(header, body, id_header, id_body, color):
     '''
     Genera un card para mostrar los KPI.

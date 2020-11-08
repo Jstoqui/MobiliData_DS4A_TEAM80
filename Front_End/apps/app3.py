@@ -52,6 +52,8 @@ max_hour_index = len(all_hours_rounded)-1
 fig_monitoring = multiLine(df_volumes_monitoring, tipologies[0], all_locations[0], (all_hours_rounded[min_hour_index], all_hours_rounded[max_hour_index]) )
 # Stacked area plot de los volumenes de todas las tipologías para una fecha
 fig_stacked = staked_plot_by_topology_plotly(df_volumes_monitoring, all_registered_dates_monitoring[0], all_locations[0], (all_hours_rounded[min_hour_index], all_hours_rounded[max_hour_index]) )
+# Stacked area plot de las reas de todas las tipologias
+fig_stacked_car_area = staked_plot_by_topology_area_plotly(df_volumes_monitoring, all_registered_dates_monitoring[0], all_locations[0], (all_hours_rounded[min_hour_index], all_hours_rounded[max_hour_index]))
 
 # DESCRIPTION TEXT
 tipologies_description_dict = {
@@ -196,6 +198,7 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                                 # COLUMNA DE LOS PLOTS (DERECHA)
                                 dbc.Col([
                                     html.Div(dcc.Graph(className="icon-box wow fadeInUp",id="monitoreo-bar", figure=fig_stacked), style={"border":"2px #6c757d solid", "border-radius": "4px"}),
+                                    html.Div(dcc.Graph(id="monitoreo-area", figure=fig_stacked_car_area), style={'marginTop': 25, "border":"2px #6c757d solid", "border-radius": "4px"}),
                                     html.Div(dcc.Graph(className="icon-box wow fadeInUp",id="monitoreo-time", figure=fig_monitoring), style={'marginTop': 25, "border":"2px #6c757d solid", "border-radius": "4px"}),
                                 ]),
                             ]),
@@ -231,10 +234,10 @@ def update_figure_monitoring(tipology, direccion, hora):
 
 # SLIDER DE LAS HORAS
 @app.callback(
-    Output("monitoreo-bar", "figure"),
+    [Output("monitoreo-bar", "figure"), Output("monitoreo-area", "figure")],
     [Input("fecha-picker", "value"), Input("direccion-picker", "value"), Input("hour-slider", "value")])
 def update_figure_monitoring_stacked_plot(fecha, direccion, hora_ind):
-    return staked_plot_by_topology_plotly(df_volumes_monitoring, fecha, direccion, (all_hours_rounded[hora_ind[0]], all_hours_rounded[hora_ind[1]]))
+    return staked_plot_by_topology_plotly(df_volumes_monitoring, fecha, direccion, (all_hours_rounded[hora_ind[0]], all_hours_rounded[hora_ind[1]])), staked_plot_by_topology_area_plotly(df_volumes_monitoring, fecha, direccion, (all_hours_rounded[hora_ind[0]], all_hours_rounded[hora_ind[1]]))
 
 # DROPDOWN DE LAS FECHAS
 @app.callback([Output("fecha-picker", "options"), Output("fecha-picker", "value")], Input("direccion-picker", "value"))
@@ -257,7 +260,7 @@ def update_kpi_volume(tipology, direccion, fecha, hora):
 
 
 # CARDS KPI HOUR WITH GREATER VOLUME
-@dash_app.callback([Output("hour-greater-vol-am", "children"), Output("hour-greater-vol-pm", "children")], Input("fecha-picker", "value"))
+@app.callback([Output("hour-greater-vol-am", "children"), Output("hour-greater-vol-pm", "children")], Input("fecha-picker", "value"))
 def update_kpi_max_volume_hour(fecha):
     return get_hour_with_max_volume(df_volumes_monitoring, fecha, 500, 1200), get_hour_with_max_volume(df_volumes_monitoring, fecha, 1200, 2300)
 
