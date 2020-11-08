@@ -20,20 +20,22 @@ Response:
 model = joblib.load("model.joblib")
 
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods=["POST", "GET"])
 def predict():
     data = request.get_json()
-    steps = data.get("steps")
-    # 
-    pred_uc = model.get_forecast(steps=steps)
-    df_response = pd.concat([pred_uc.conf_int(), pred_uc.predicted_mean], axis=1)
-    response = df_response.to_json()
-    return response
-
+    if request.method == 'POST':
+        steps = data.get("steps")
+        # 
+        pred_uc = model.get_forecast(steps=steps)
+        df_response = pd.concat([pred_uc.conf_int(), pred_uc.predicted_mean], axis=1)
+        response = df_response.to_json()
+        return response
+    else:
+        return {"message": "Utilice el método POST.", "success": False}
 
 @app.errorhandler(404)
 def not_found(error=None):
-    message = {"status": 404, "message": "El recurso no existe"}
+    message = {"status": 404, "message": "El recurso no existe. Intente la ruta /predict con método POST"}
     response = jsonify(message)
     response.status_code = 404
     return response
