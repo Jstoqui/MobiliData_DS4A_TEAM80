@@ -46,3 +46,15 @@ def get_round_hours(hours):
     '''
     return [hour for hour in hours if hour.endswith("00")]
 
+
+
+def get_hour_with_max_volume(df, fecha, init, final):
+    all_hour_ranges = []
+    all_meditions = []
+    while init < final:
+        # print(df_monitoreo[(df_monitoreo["PERIODO"] >= init) & (df_monitoreo["PERIODO"] <= init+100) & (df_monitoreo["FECHA"] == fecha)])
+        all_meditions.append(df[(df["PERIODO"] >= init) & (df["PERIODO"] <= init+100) & (df["FECHA"] == fecha)]["TOTAL VOLUME"].median())
+        all_hour_ranges.append("{}-{}".format(init, init+100))
+        init += 100
+    hour_with_max_volume = all_hour_ranges[np.argmax(all_meditions)]
+    return hour_with_max_volume

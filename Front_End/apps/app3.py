@@ -69,6 +69,13 @@ description_topologies = [html.Li("{}: {}".format(item[0], item[1])) for item in
 # KPI VALUES
 mean_volume = "{:.2f}".format(df_volumes_monitoring[tipologies[0]].mean())
 
+# HOUR WITH GREATER VOLUME AM AND PM
+init_am, init_pm = 500, 1200
+final_am, final_pm = 1200, 2300
+
+max_volume_hour_am = get_hour_with_max_volume(df_volumes_monitoring, all_registered_dates_monitoring[0], init_am, final_am)
+max_volume_hour_pm = get_hour_with_max_volume(df_volumes_monitoring, all_registered_dates_monitoring[0], init_pm, final_pm)
+
 
 # MAP
 ubicacion = "Bogotá D.C. Map"# HARDCODED
@@ -136,18 +143,18 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                                 ),
                                 dbc.Col(
                                     kpi_component(
-                                        header="Velocidad Promedio: {}".format(min(tipologies)),
-                                        body=mean_volume,
-                                        id_header="header-speed",
-                                        id_body="mean-volume2",
-                                        color="warning")
+                                        header="Peak volume hour in AM period",
+                                        body=max_volume_hour_am,
+                                        id_header="header-volume2",
+                                        id_body="hour-greater-vol-am",
+                                        color="secondary")
                                 ),
                                 dbc.Col(
                                     kpi_component(
-                                        header="Volumen Promedio: {}".format(min(tipologies)),
-                                        body=mean_volume,
+                                        header="Peak volume hour in PM period",
+                                        body=max_volume_hour_pm,
                                         id_header="header-volume3",
-                                        id_body="mean-volume3",
+                                        id_body="hour-greater-vol-pm",
                                         color="info")
                                 ),
                                 dbc.Col(
@@ -247,6 +254,12 @@ def update_kpi_volume(tipology, direccion, fecha, hora):
     else:    
         promedio_string = "{:.2f}".format(promedio)
     return [promedio_string, "Average Volume"]
+
+
+# CARDS KPI HOUR WITH GREATER VOLUME
+@dash_app.callback([Output("hour-greater-vol-am", "children"), Output("hour-greater-vol-pm", "children")], Input("fecha-picker", "value"))
+def update_kpi_max_volume_hour(fecha):
+    return get_hour_with_max_volume(df_volumes_monitoring, fecha, 500, 1200), get_hour_with_max_volume(df_volumes_monitoring, fecha, 1200, 2300)
 
 
 # CENTRADO DEL mapa2
