@@ -198,7 +198,7 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                                 # COLUMNA DE LOS PLOTS (DERECHA)
                                 dbc.Col([
                                     html.Div(dcc.Graph(className="icon-box wow fadeInUp",id="monitoreo-bar", figure=fig_stacked), style={"border":"2px #6c757d solid", "border-radius": "4px"}),
-                                    html.Div(dcc.Graph(id="monitoreo-area", figure=fig_stacked_car_area), style={'marginTop': 25, "border":"2px #6c757d solid", "border-radius": "4px"}),
+                                    html.Div(dcc.Graph(className="icon-box wow fadeInUp", id="monitoreo-area", figure=fig_stacked_car_area), style={'marginTop': 25, "border":"2px #6c757d solid", "border-radius": "4px"}),
                                     html.Div(dcc.Graph(className="icon-box wow fadeInUp",id="monitoreo-time", figure=fig_monitoring), style={'marginTop': 25, "border":"2px #6c757d solid", "border-radius": "4px"}),
                                 ]),
                             ]),
