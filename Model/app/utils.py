@@ -4,11 +4,16 @@ import pandas as pd
 dayofweek 	month 	dayofyear 	dayofmonth 	weekofyear
 '''
 
-datetime.timedelta()
+'''
+'dayofweek', 'dayofyear', 'dayofmonth'
+'''
+
+# datetime.timedelta()
 
 def get_features(datetime_str):
     # datetime_str = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-    return datetime_str.weekday(), datetime_str.month, datetime_str.timetuple().tm_yday, datetime_str.day, datetime_str.isocalendar()[1]
+     #datetime_str.month, datetime_str.isocalendar()[1]
+    return datetime_str.weekday(), datetime_str.timetuple().tm_yday, datetime_str.day
 
 def get_feature_matrix(start_date, end_date):
     start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d")
@@ -23,7 +28,7 @@ def get_feature_matrix(start_date, end_date):
         feat_mat.append(get_features(day))
         dates.append(day)
 
-    df = pd.DataFrame(feat_mat, columns=["dayofweek", "month", "dayofyear", "dayofmonth", "weekofyear"], index=dates)
+    df = pd.DataFrame(feat_mat, columns=["dayofweek", "dayofyear", "dayofmonth"], index=dates)
     return df
     
 

@@ -11,7 +11,7 @@ import os
 import pandas as pd
 import datetime
 import math
-from decouple import config
+# from decouple import config
 from utils import *
 from app import app
 

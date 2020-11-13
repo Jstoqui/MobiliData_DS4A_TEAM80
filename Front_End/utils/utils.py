@@ -1,4 +1,4 @@
-
+import numpy as np
 
 def get_lat_long(direcccion, all_locations_dict):
     '''

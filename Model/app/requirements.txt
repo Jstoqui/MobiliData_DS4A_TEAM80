@@ -1,4 +1,4 @@
 Flask==1.1.2
 joblib==0.16.0
 statsmodels==0.12.0
-xgboost==0.90
+xgboost==1.2.1

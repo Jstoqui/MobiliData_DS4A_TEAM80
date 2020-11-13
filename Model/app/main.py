@@ -49,7 +49,7 @@ Response:
 @app.route("/predict/generalModel", methods=["POST", "GET"])
 def predict_xgboost():
     data = request.get_json()
-    model = joblib.load("model_xgb_gridcv.joblib")
+    model = joblib.load("model_xgboost_final.joblib")
     if request.method == 'POST':
         start_date, end_date = data.get("start_date"), data.get("end_date")
         feat_mat_df = get_feature_matrix(start_date, end_date)

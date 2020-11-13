@@ -1,9 +1,13 @@
 import datetime
 import pandas as pd
-'''
-'dayofweek', 'month', 'dayofyear', 'dayofmonth', 'weekofyear'
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
 
- 	dayofweek 	month 	dayofyear 	dayofmonth 	weekofyear
+'''
+dayofweek 	month 	dayofyear 	dayofmonth 	weekofyear
 '''
 
 datetime.timedelta()
@@ -40,6 +44,41 @@ def get_x_time_vector(start_date, end_date):
         dates.append(day)    
 
     return dates
+
+def kpi_component(header, body, id_header, id_body, color):
+    '''
+    Genera un card para mostrar los KPI.
+
+    INPUTS
+    header: header del card
+    body: body del card
+    id_header: id del header
+    id_body: id del body
+    color: color deseado para el card
+    '''
+    card_content = [
+        dbc.CardHeader(header, id=id_header),
+        dbc.CardBody(html.H2(body, id=id_body, className="card-title")),
+    ]
+    return dbc.Card(card_content, color=color, inverse=True)
+
+def build_download_button(uri):
+    """Generates a download button for the resource"""
+    button = html.Form(
+        action=uri,
+        method="get",
+        children=[
+            html.Button(
+                className="button",
+                type="submit",
+                children=[
+                    "download"
+                ]
+            )
+        ]
+    )
+    return button
+
 
 if __name__ == "__main__":
     start_str = "2017-06-06"
