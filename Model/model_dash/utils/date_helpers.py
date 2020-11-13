@@ -29,13 +29,23 @@ def get_feature_matrix(start_date, end_date):
     return df
     
 
+def get_x_time_vector(start_date, end_date):
+    start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+    end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+    delta = end_date - start_date
+
+    dates = []
+    for i in range(delta.days + 1):
+        day = start_date + datetime.timedelta(days=i)
+        dates.append(day)    
+
+    return dates
 
 if __name__ == "__main__":
     start_str = "2017-06-06"
     end_str = "2017-06-20"
 
-    print(get_feature_matrix(start_str, end_str))
-
+    print(get_x_time_vector(start_str, end_str))
     # datetime_str = datetime.datetime.strptime(date_str, "%Y-%m-%d")
     # print(datetime_str.today().weekday()) # dayofweek
     # print(datetime_str.now().timetuple().tm_yday) # dayofyear
