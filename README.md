@@ -37,7 +37,7 @@ Mobilidata has an interactive app build with Dash-Plotly and deployed on an Comp
 
 For the data wrangling process we design an automated data pipeline which takes advantage of some services of the Google Cloud Platform. These scripts are stored in a Compute Engine instance and are executed every time that the customer adds a new source to the data lake. This process ends with the cleaned and enriched data uploaded to Big query Datasets and tables.
 
-![Data Wrangling](./Mobilidata_Front_End/assets/img/data_wrangling.jpg)
+![Data Wrangling](./Mobilidata_Front_End/assets/img/Data_Wrangling.jpg)
 
 ## Modeling
 
@@ -81,7 +81,7 @@ The web application is hosted in a __Compute Engine instance__, this instance ru
 
 The application was implement with a multipage approach in which an index application made calls for another sub branches to show it in the front like we see in the figure, in addition all this sub apps consume resources from the assets folder, for the web application implementation and for every one of the dashboards we used Dash, HTML, CSS, and some JavaScript scripts and in addition we implement Bootstrap.
 
-![Infrastructure](./Mobilidata_Front_End/assets/img/front_back_structure.jpg)
+![Infrastructure](./Mobilidata_Front_End/assets/img/Front_End_Image.jpg)
 
 ## How to run the app
 
