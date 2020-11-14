@@ -29,7 +29,7 @@ There are mainly 3 datasets:
 
 ## Front-end Description
 
-Mobilidata has an interactive app build with Dash-Plotly and deployed on an Compute Engine instance on Google Cloud Platform (GCP). Mobilidata app consists of four main parts, that corresponds to each dataset and another to interact with a Forecasting model based on XGBoost.
+Mobilidata has an interactive app build with Dash-Plotly and deployed on an Compute Engine instance on Google Cloud Platform (GCP). Mobilidata app consists of four main parts, that corresponds to each dataset and another to interact with a Forecasting model based on __XGBoost__.
 
 ![App](./Mobilidata_Front_End/assets/img/home_app.gif)
 
@@ -41,7 +41,7 @@ For the data wrangling process we design an automated data pipeline which takes 
 
 ## Modeling
 
-Traffic incidents are an issue that not only affects the authorities but the population in general and taking into account that the number of accidents in the city is higher in some locations and for some road actors; we decided to make a model that predicts the number of traffic incidents per day based on the history period of the number of incidents found between the years 2015-2019. 
+Traffic incidents are an issue that not only affects the authorities but the population in general and taking into account that the number of accidents in the city is higher in some locations and for some road actors; we decided to make a model that predicts the number of traffic incidents per day based on the history period of the number of incidents found between the years 2015-2019.
 
 We carry out the model for three different scenarios:
 
@@ -49,9 +49,9 @@ We carry out the model for three different scenarios:
 - Model for the 3 boroughs that have presented the highest number of claims over the years (Kennedy, Usaquén and Engativá).
 - Model for the road actor most likely to be injured or killed in an traffic incident, which in this case is motorcyclists.
 
-In order to make a predictive model we used two methods, one of them was the SARIMAX model (autoregressive integrated moving average with explanatory variables), which is widely used in mobility issues, since exogenous variables can be implemented to make forecasts. Finally we implemented the XGboost algorithm (Extra Gradient boosting), by which we obtained better results. This model has advantages such as working on large databases with multiple variables -both categorical and numerical-, and admits missing values.
+In order to make a predictive model we used two methods, one of them was the __SARIMAX__ model (autoregressive integrated moving average with explanatory variables), which is widely used in mobility issues, since exogenous variables can be implemented to make forecasts. Finally we implemented the XGboost algorithm (Extra Gradient boosting), by which we obtained better results. This model has advantages such as working on large databases with multiple variables -both categorical and numerical-, and admits missing values.
 
-The final model was hosted on Google App Engine, serializing the trained model with joblib, and creating a REST API with Flask microframework for consuming it from the front-end. The API has a POST method, predict/generalModel. The request is composed of the range of dates to predict and the response for the predicted mean and vector of timestamps generated for plotting the time signal.
+The final model was hosted on __Google App Engine__, serializing the trained model with joblib, and creating a REST API with __Flask microframework__ for consuming it from the front-end. The API has a POST method, predict/generalModel. The request is composed of the range of dates to predict and the response for the predicted mean and vector of timestamps generated for plotting the time signal.
 
 Request:
 
