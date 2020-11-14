@@ -9,6 +9,7 @@ import plotly.express as px
 # from google.cloud import bigquery
 import os
 import pandas as pd
+import numpy as np
 import datetime
 import math
 from decouple import config
@@ -133,6 +134,9 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                         ),
                         # COLUMNA DERECHA
                         dbc.Col([
+                            html.Header(className="section-header", children=[
+                                html.H3('Explore the Traffic Volumes in especifics points of Bogotá '),
+                            ]),
                             # ********** CARDS KPI ROW **********
                             dbc.Row([
                                 dbc.Col(

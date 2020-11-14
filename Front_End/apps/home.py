@@ -289,16 +289,6 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
             ])
         ])
     ]),
-    html.Footer(id="footer",children=[
-        html.Div(className="container",children=[   
-            html.Div(className='copyright',children=[
-                html.P(["Copyright ",html.Strong('MobiliData',"All Rights Reserved")])
-             ])
-        ])
-    ])
-
-
-
     #html.H1("Bienvenidos team 80", id='title'), #Creates the title of the app
     #html.H2("Esta es la pagina final", id='Subtitle'),
 ])

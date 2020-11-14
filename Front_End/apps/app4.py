@@ -4,6 +4,34 @@ from dash.dependencies import Input, Output
 
 from app import app
 
+import google.auth
+from google.oauth2 import service_account
+from google.cloud import storage
+from google.cloud import bigquery
+
+
+
+credencial= service_account.Credentials.from_service_account_file(
+    'key.json',
+    scopes=["https://www.googleapis.com/auth/cloud-platform"]
+)
+
+# Construct a BigQuery client object.
+client2 = bigquery.Client(
+    credentials= credencial,
+    project=credencial.project_id,
+)
+
+#Get bitcarrier_weekday from Big Query
+query_mainroad = '''
+SELECT tid, Corredor, complete_name, date, weekday, hour, speed, count, distance, Sentido 
+FROM `ds4a-v3-team80.MOVILIDAD.BITCARRIER`
+'''
+
+df_bitcarrier_mainroad_weekday = client2.query(query_mainroad).to_dataframe()
+
+
+
 #Create Layout
 layout = html.Div([
     html.H1('Bienvenido al Dashboard del Modelo'),

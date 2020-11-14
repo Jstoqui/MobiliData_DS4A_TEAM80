@@ -9,6 +9,12 @@ import os
 import pandas as pd
 import numpy as np
 
+import google.auth
+from google.oauth2 import service_account
+from google.cloud import storage
+from google.cloud import bigquery
+
+
 external_scripts = [
     {
         'src': '/assets/lib/jquery/jquery.min.js'

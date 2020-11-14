@@ -9,14 +9,20 @@ import os
 import pandas as pd
 import numpy as np
 
+import google.auth
+from google.oauth2 import service_account
+from google.cloud import storage
+from google.cloud import bigquery
+
+
 from app import app
-from apps import app1, app2, app3, app4, home
+from apps import  Siniestros, app3, app4, home, Speed
 
 dropdown = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Home", href="apps/home"),
-        dbc.DropdownMenuItem("Velocidades", href="/apps/app1"),
-        dbc.DropdownMenuItem("Siniestralidad", href="/apps/app2"),
+        dbc.DropdownMenuItem("Velocidades", href="/apps/Speed"),
+        dbc.DropdownMenuItem("Siniestralidad", href="/apps/Siniestros"),
         dbc.DropdownMenuItem("Volumenes", href="/apps/app3"),
         dbc.DropdownMenuItem("Modelo", href="/apps/app4"),        
     ],
@@ -32,10 +38,11 @@ navbar = dbc.Navbar(
                 # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
+                        dbc.Col(html.Img(src="/assets/img/MobilidataS2.png", height="40px")),                        
                         dbc.Col(html.Img(src="/assets/img/Correlation.png", height="70px")),
                         #dbc.Col(dbc.NavbarBrand(" App movilidad Bogotá", className="ml-3")),
                         dbc.Col(dbc.NavbarBrand("Bogotá Mobility Data App 1.0 ", className="ml-3")),
-                        dbc.Col(html.Img(src="/assets/img/MobilidataS2.png", height="25px")),
+                        #dbc.Col(html.Img(src="/assets/img/MobilidataS2.png", height="40px")),
                         
                     ],
                     align="center",
@@ -58,7 +65,7 @@ navbar = dbc.Navbar(
     dark=True,
     className="mb-4",
     #sticky='top'
-    #fixed='top'
+    fixed='top'
 )
 
 def toggle_navbar_collapse(n, is_open):
@@ -79,7 +86,14 @@ app.layout = html.Div([
     #html.H1('Super App movilidad Secretaria'),
     dcc.Location(id='url', refresh=False),
     navbar,
-    html.Div(id='page-content')
+    html.Div(id='page-content'),
+    html.Footer(id="footer",children=[
+        html.Div(className="container",children=[   
+            html.Div(className='copyright',children=[
+                html.P(["Copyright ",html.Strong('MobiliData',"All Rights Reserved")])
+             ])
+        ])
+    ])
 ])
 
 
@@ -87,10 +101,10 @@ app.layout = html.Div([
               [Input('url', 'pathname')])
 def display_page(pathname):
     #pathname = '/apps/app2'
-    if pathname == '/apps/app1':
-        return app1.layout
-    elif pathname == '/apps/app2':
-        return app2.layout
+    if pathname == '/apps/Speed':
+        return Speed.layout
+    elif pathname == '/apps/Siniestros':
+        return Siniestros.layout
     elif pathname == '/apps/app3':
         return app3.layout
     elif pathname == '/apps/app4':

@@ -55,6 +55,7 @@ df2=df1.copy()
 
 df2['Mes'].replace(meses, inplace=True)
 df2['Dia'].replace(dias, inplace=True)
+df2['Dia_mes']=pd.to_datetime(df2['FECHA']).dt.day
 
 
 descripcion = df2.copy()
@@ -107,11 +108,27 @@ layout2 = dict(boxmode = 'group',
                margin=dict(l=50, r=50, b=0, t=0, pad=10)
 )
 
+layout3 = dict(height = 300,
+               #width = 1500,
+               title = dict(
+                   text = "Time Series / Count of Road Incident by Day", 
+                   xanchor='center', 
+                   yanchor='top', 
+                   y=0.9,
+                   x=0.5),
+               autosize=True,
+               paper_bgcolor = 'rgba(0,0,0,0)', 
+               plot_bgcolor = 'rgba(0,0,0,0)',
+               margin = dict(l=50, r=50, b=50, t=50, pad=10),                                
+               xaxis =  dict(visible = True, showgrid=True, gridcolor='rgb(150,150,150)'),
+               yaxis = dict(visible = True, showgrid=True, gridcolor='rgb(150,150,150)',  rangemode = 'normal'),
+)
+
 mapa_layout = dict(mapbox_style="carto-positron",
                    width=600,
                    height=600,
                    autosize=False,
-                   #showlegend = False,
+                   hovermode=False,
                    margin=dict(l=10, r=30, b=0, t=10, pad=10),
                    legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01)
                   )
@@ -121,18 +138,19 @@ causas = [{'label': i, 'value': i} for i in causas_top30]
 
 ##################################################  Inicializar grafica 1    #########################################################
 
-fig = go.Figure([go.Bar(x=df2.groupby('Hora')['CODIGO_SINIESTRO'].count().index, 
-                        y=df2.groupby('Hora')['CODIGO_SINIESTRO'].count())])
+l = df2.groupby(['Hora','GRAVEDAD'])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
 
+fig=px.bar(l, x='Hora', y='Cantidad',  color='GRAVEDAD')
 fig.update_layout(layout1)
 
 ####################################################### inicializar  mapa ################################################################
 
 fig2 = px.scatter_mapbox(df2[(
-    df2['TOTAL_MUERTOS']>0) | (df2['TOTAL_HERIDOS']>5)],
+    df2['TOTAL_MUERTOS']>3) | (df2['TOTAL_HERIDOS']>5)],
     lat="lat", 
     lon="lon", 
-    zoom=10, 
+    zoom=10,
+    opacity=0, 
     color='GRAVEDAD')
 
 fig2.update_layout(mapa_layout)
@@ -142,6 +160,8 @@ color_discrete_map={
                 "Femenino": "blue",
                 "Sin información": "green"}
 
+color_discrete_sequence=["MediumSpringGreen", "red", "CornflowerBlue", "goldenrod", "magenta", "Gold", "LightSeaGreen"]
+
 ################################################        Incicializar gráfica 2         ##################################################
 zz = df3[df3['ESTADO']!='ILESO'].groupby(['CONDICION','SEXO'])['CODIGO_SINIESTRO'].count().reset_index(name='Cantidad')                                             
 
@@ -150,7 +170,27 @@ fig3=px.bar(zz, y="Cantidad", x="CONDICION",
 
    
 
-#******************************************************************************************************************************************
+#########################################################################################################################################
+
+################################################        Incicializar gráfica 3         ##################################################
+def serie_temporal2(data):    
+    
+    TS2 = data.copy()
+    TS2['FECHA'] = pd.to_datetime(TS2['FECHA'])
+    TS2 = TS2.sort_values(by=['FECHA'])
+    ts_siniestros2 = pd.DataFrame(TS2.groupby('FECHA')['CODIGO_SINIESTRO'].count(
+    ).reset_index(name='Cantidad_siniestros').set_index('FECHA'))
+    
+    return ts_siniestros2
+
+fig4 = go.Figure([go.Scatter(x=serie_temporal2(df2).index, 
+                        y=serie_temporal2(df2)['Cantidad_siniestros'])])
+
+
+fig4.update_layout(layout3)
+   
+
+##########################################################################################################################################
 
 
 def kpi_component(header, body, id_header, id_body, color):
@@ -159,114 +199,118 @@ def kpi_component(header, body, id_header, id_body, color):
         dbc.CardBody(html.H2(children=body, id=id_body, className="card-title")),
     ]
     return dbc.Card(card_content, color=color, inverse=True,className="card wow bounceInUp")
-    
-    
 
 layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},fluid=True, children=[
-        html.Div([dbc.Row([dbc.Col()])],style={'height':"90px"}),
-        html.Div([
-            dbc.Row([
-                    dbc.Col([
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H2("Filters"),
-                            ], style={'marginBottom': 50, 'marginTop': 30, "color": "white", "text-align": "center"}),
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H3("Localidad"),
-                                dcc.Dropdown(id="dropdown", options=localidades, multi=True, 
-                                                style={'marginBottom': 30, 'marginTop': 10, "color": "gray"})
-                            ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H3("Dirección"),
-                                dcc.Dropdown(id="dropdown2", options=[], multi=True, 
-                                                style={'marginBottom': 30, 'marginTop': 10, "color": "gray"})
-                            ], style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H3("Hipótesis"),
-                                dcc.Dropdown(id="dropdown3", options=causas, multi=True, 
-                                                style={'marginBottom': 30, 'marginTop': 10, "color": "gray"})
-                            ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H3("Temporalidad"),                                    
-                                dbc.RadioItems(id='radio_items', options=[{'label': 'Mes', 'value': 'Mes'},
-                                                                            {'label': 'Día', 'value': 'Dia'},
-                                                                            {'label': 'Hora','value': 'Hora'}],
-                                                value='Hora')
-                                                            
-                            ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H3("Clasificación"),                                    
-                                dbc.RadioItems(id='radio_items2', options=[{'label': 'Gravedad', 'value': 'GRAVEDAD'},
-                                                                            {'label': 'Clase','value': 'CLASE'}], 
-                                                value='GRAVEDAD',
-                                                                            style={"display":"inline-block"})
-                                                            
-                            ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
-                            html.Div(className="icon-box wow fadeInUp",children=[
-                                html.H3("Rango de tiempo"),                                    
-                                dcc.RangeSlider(id='fecha', marks= {
-                                    i: {'label':str(i), 'style': {'color': 'white'}} 
-                                    for i in range(df2['ANO'].min(), df2['ANO'].max()+2)},
-                                                min=df2['ANO'].min(), 
-                                                max=df2['ANO'].max()+1, 
-                                                value=[df2['ANO'].min(), df2['ANO'].max()+1])      
+    html.Div([dbc.Row([dbc.Col()])],style={'height':"90px"}),
+    html.Div([
+        dbc.Row([
+            dbc.Col(width={"size":2},style={"background-color":"#42456f"},children=[
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H2("Filter by"),
+                ], style={'marginBottom': 30, 'marginTop': 30, "color": "white", "text-align": "center"}),
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H3("Borough"),
+                    dcc.Dropdown(id="dropdown", options=localidades, multi=True, 
+                                    style={'marginBottom': 30, 'marginTop': 10, "color": "gray"})
+                ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H3("Address"),
+                    dcc.Dropdown(id="dropdown2", options=[], multi=True, 
+                                    style={'marginBottom': 30, 'marginTop': 10, "color": "gray"})
+                ], style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H3("Hypothesis"),
+                    dcc.Dropdown(id="dropdown3", options=causas, multi=True, 
+                                    style={'marginBottom': 30, 'marginTop': 10, "color": "gray"})
+                ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H3("Time"),                                    
+                    dbc.RadioItems(id='radio_items', options=[{'label': 'Month', 'value': 'Mes'},
+                                                                {'label': 'Day of the Week', 'value': 'Dia'},                                                                                               {'label': 'Day of the Month', 'value': 'Dia_mes'},
+                                                                {'label': 'Hour','value': 'Hora'}],
+                                    value='Hora')
+                                                
+                ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H3("Classification"),                                    
+                    dbc.RadioItems(id='radio_items2', options=[{'label': 'Severity', 'value': 'GRAVEDAD'},
+                                                                {'label': 'Type','value': 'CLASE'},
+                                                                {'label': 'Hour','value': 'Hora'}], 
+                                    value='GRAVEDAD',
+                                                                style={"display":"inline-block"})
+                                                
+                ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
+                html.Div(className="icon-box wow fadeInUp",children=[
+                    html.H3("Time range"),                                    
+                    dcc.RangeSlider(id='fecha', marks= {
+                        i: {'label':str(i), 'style': {'color': 'white'}} 
+                        for i in range(df2['ANO'].min(), df2['ANO'].max()+2)},
+                                    min=df2['ANO'].min(), 
+                                    max=df2['ANO'].max()+1, 
+                                    value=[df2['ANO'].min(), df2['ANO'].max()+1],pushable=1)      
 
-                            ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
-                            ],
-                        width={"size":2},
-                        style={"background-color":"#42456f"}
-                    ),
-                    dbc.Col([
-    ########################################## ********** CARDS KPI **********#######################################################
-
-                        dbc.Row([
-                            dbc.Col(
-                                kpi_component(
-                                    header="Siniestros:",
-                                    body='???',
-                                    id_header="header3",
-                                    id_body="cantidad_siniestros",
-                                    color="primary")
-                            ),
-                            dbc.Col(
-                                kpi_component(
-                                    header="Fallecidos: ",
-                                    body='???',
-                                    id_header="header2",
-                                    id_body="cantidad_fallecidos",
-                                    color="danger")
-                            ),
-                            dbc.Col(
-                                kpi_component(
-                                    header="Heridos: ",
-                                    body='???',
-                                    id_header="header-volume3",
-                                    id_body="cantidad_heridos",
-                                    color="warning")
-                            ),
-                            dbc.Col(
-                                kpi_component(
-                                    header="Vehiculos: ",
-                                    body='???',
-                                    id_header="header666",
-                                    id_body="cantidad_vehiculos",
-                                    color="info")
-                            ),
-                        ], style={'marginBottom': 50, 'marginTop': 0}),
-                        dbc.Row([
-                            dbc.Col(width=6, children=[
-                                html.Div(children=[
-                                    dcc.Graph(className="icon-box wow fadeInUp",id="mapa", figure=fig2, style={"height": "100%"})
-                                ])
-                            ]),
-                            dbc.Col([
-                                html.Div(children=[dcc.Graph(className="icon-box wow fadeInUp",id="grafico", figure=fig)]),
-                                html.Div(children=[dcc.Graph(className="icon-box wow fadeInUp",id="grafico2", figure=fig3)]),
-                            ]),
-                        ]),
-                    ]
-                )
+                ],  style={'marginBottom': 30, 'marginTop': 25, "color": "white"}),
             ]),
-        ])
+ ########################################## ********** CARDS KPI **********#######################################################
+            dbc.Col([
+                html.Header(className="section-header", children=[
+                    html.H3('Explore The traffic Incidents on Bogotá '),
+                    #html.P('Check out the main roads between August and October')
+                ]),
+                dbc.Row(style={'marginBottom': 50, 'marginTop': 0},children=[
+                    dbc.Col(
+                        kpi_component(
+                            header="Siniestros:",
+                            body='???',
+                            id_header="header3",
+                            id_body="cantidad_siniestros",
+                            color="primary")
+                    ),
+                    dbc.Col(
+                        kpi_component(
+                            header="Fallecidos: ",
+                            body='???',
+                            id_header="header2",
+                            id_body="cantidad_fallecidos",
+                            color="danger")
+                    ),
+                    dbc.Col(
+                        kpi_component(
+                            header="Heridos: ",
+                            body='???',
+                            id_header="header-volume3",
+                            id_body="cantidad_heridos",
+                            color="warning")
+                    ),
+                    dbc.Col(
+                        kpi_component(
+                            header="Vehículos: ",
+                            body='???',
+                            id_header="header666",
+                            id_body="cantidad_vehiculos",
+                            color="info")
+                    ),
+                ]),
+                dbc.Row([
+                    dbc.Col(width=6, children=[
+                        html.Div(children=[
+                            dcc.Graph(className="icon-box wow fadeInUp",id="mapa", figure=fig2, style={"height": "100%"})
+                        ])
+                    ]),
+                    dbc.Col([
+                        html.Div(children=[dcc.Graph(className="icon-box wow fadeInUp",id="grafico", figure=fig)]),
+                        html.Div(children=[dcc.Graph(className="icon-box wow fadeInUp",id="grafico2", figure=fig3)]),
+                    ]),
+                ]),
+                html.Div([
+                        dbc.Row(dbc.Col(
+                        html.Div(dcc.Graph(id="serie", figure=fig4)),width=12
+                        )),
+                    ]),
+            ]
+        )
+    ]),
+])
 ])
 
 
@@ -307,9 +351,13 @@ def update_grafico2(fecha_value,
             df_con_hipotesis['CODIGO_SINIESTRO'])].groupby(
             ['CONDICION','SEXO'])['CODIGO_SINIESTRO'].count().reset_index(name='Cantidad')                                             
 
-        fig=px.bar(z, y="Cantidad", x="CONDICION",
-             color='SEXO', barmode='stack', color_discrete_map = color_discrete_map)
-
+        try: 
+            fig=px.bar(z, y="Cantidad", x="CONDICION",
+                 color='SEXO', barmode='stack', color_discrete_map=color_discrete_map)
+        except:
+            fig=px.bar(z, y="Cantidad", x="CONDICION",
+                  barmode='stack', color_discrete_map=color_discrete_map)
+                        
     
     else:
 
@@ -319,9 +367,13 @@ def update_grafico2(fecha_value,
             grupo = victimas[victimas['CODIGO_SINIESTRO'].isin(l)]
             z = grupo.groupby(['CONDICION','SEXO'])['CODIGO_SINIESTRO'].count().reset_index(name='Cantidad')                                             
 
-            fig=px.bar(z, y="Cantidad", x="CONDICION",
-             color='SEXO', barmode='stack', color_discrete_map=color_discrete_map)
-            
+            try: 
+                fig=px.bar(z, y="Cantidad", x="CONDICION",
+                 color='SEXO', barmode='stack', color_discrete_map=color_discrete_map)
+            except:
+                fig=px.bar(z, y="Cantidad", x="CONDICION",
+                  barmode='stack', color_discrete_map=color_discrete_map)
+                                    
         else:
            
             l = df_con_hipotesis[(
@@ -331,9 +383,12 @@ def update_grafico2(fecha_value,
             
             
             z = grupo.groupby(['CONDICION','SEXO'])['CODIGO_SINIESTRO'].count().reset_index(name='Cantidad')                                             
-
-            fig=px.bar(z, y="Cantidad", x="CONDICION",
-             color='SEXO', barmode='stack', color_discrete_map=color_discrete_map)
+            try: 
+                fig=px.bar(z, y="Cantidad", x="CONDICION",
+                 color='SEXO', barmode='stack', color_discrete_map=color_discrete_map)
+            except:
+                fig=px.bar(z, y="Cantidad", x="CONDICION",
+                  barmode='stack', color_discrete_map=color_discrete_map)
                         
             
 
@@ -378,15 +433,20 @@ def update_dropdown2(dropdown_value):
     Output('cantidad_vehiculos', 'children'),  
     [Input('fecha', 'value')],
     [Input('radio_items', 'value')],
+    [Input('radio_items2', 'value')],
     [Input('dropdown', 'value')],
     [Input('dropdown2', 'value'),],
     [Input('dropdown3', 'value'),])
 def update_grafico(fecha_value, 
                    radio_items_value, 
+                   radio_items_value2, 
                    dropdown_value, 
                    dropdown_value2, 
                    dropdown_value3):
     
+    if radio_items_value2 == 'Hora':
+        radio_items_value2 = 'GRAVEDAD'
+        
     if (dropdown_value3 != None) & (dropdown_value3 != []):
         df_con_hipotesis = df2[(df2['DESCRIPCION'].isin(dropdown_value3)) |
                                (df2['DESCRIPCION2'].isin(dropdown_value3)) |
@@ -396,7 +456,7 @@ def update_grafico(fecha_value,
         df_con_hipotesis=df2.copy()
     
     df_con_hipotesis= df_con_hipotesis[
-        (df_con_hipotesis['ANO']>=fecha_value[0]) & (df_con_hipotesis['ANO']<=fecha_value[1])]
+        (df_con_hipotesis['ANO']>=fecha_value[0]) & (df_con_hipotesis['ANO']<fecha_value[1])]
     
     yaxis={'title': "Cantidad de siniestos"}
     
@@ -409,8 +469,11 @@ def update_grafico(fecha_value,
         
     if (dropdown_value == None) | (dropdown_value == []):
         
-        l = df_con_hipotesis.groupby([radio_items_value])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
-        fig=go.Figure([go.Bar(x=l[radio_items_value], y=l['Cantidad'])])
+        l = df_con_hipotesis.groupby([radio_items_value,radio_items_value2])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
+        
+        fig = px.bar(l, x=radio_items_value, y='Cantidad', color=radio_items_value2, 
+                     color_discrete_sequence=color_discrete_sequence)
+        
         siniestros = len(df_con_hipotesis)
         fallecidos = df_con_hipotesis['TOTAL_MUERTOS'].sum()
         heridos = df_con_hipotesis['TOTAL_HERIDOS'].sum()
@@ -420,8 +483,11 @@ def update_grafico(fecha_value,
         if dropdown_value2 == []:
         
             l = df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(dropdown_value)].groupby(
-                [radio_items_value])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
-            fig=go.Figure([go.Bar(x=l[radio_items_value], y=l['Cantidad'])]) 
+                [radio_items_value,radio_items_value2])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
+            
+            fig = px.bar(l, x=radio_items_value, y='Cantidad', color=radio_items_value2, 
+                         color_discrete_sequence=color_discrete_sequence)
+            
             siniestros = len(df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(dropdown_value)])
             fallecidos = df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(dropdown_value)]['TOTAL_MUERTOS'].sum()
             heridos = df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(dropdown_value)]['TOTAL_HERIDOS'].sum()
@@ -431,8 +497,10 @@ def update_grafico(fecha_value,
         else:           
             l = df_con_hipotesis[(df_con_hipotesis['LOCALIDAD'].isin(
                 dropdown_value)) & (df_con_hipotesis['DIRECCION'].isin(dropdown_value2))].groupby(
-                [radio_items_value])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
-            fig=go.Figure([go.Bar(x=l[radio_items_value], y=l['Cantidad'])])
+                [radio_items_value,radio_items_value2])['CODIGO_SINIESTRO'].count().reset_index(name = 'Cantidad')
+            
+            fig = px.bar(l, x=radio_items_value, y='Cantidad', color=radio_items_value2, 
+                         color_discrete_sequence=color_discrete_sequence)
             
             siniestros = len(df_con_hipotesis[(df_con_hipotesis['LOCALIDAD'].isin(
                 dropdown_value)) & (df2['DIRECCION'].isin(dropdown_value2))])
@@ -478,12 +546,12 @@ def update_mapa(fecha_value,
                                (df2['DESCRIPCION4'].isin(dropdown_value3))].copy()
     else:
         df_con_hipotesis=df2.copy()
-    
+   
+    zoom=10
     df_con_hipotesis= df_con_hipotesis[
         (df_con_hipotesis['ANO']>=fecha_value[0]) & (df_con_hipotesis['ANO']<=fecha_value[1])]
     
-        
-    hover_name = "LOCALIDAD"    
+    hover_name = "CODIGO_SINIESTRO"    
     if (dropdown_value == None) | (dropdown_value == []):
         
         fig = px.scatter_mapbox(df_con_hipotesis,
@@ -492,12 +560,12 @@ def update_mapa(fecha_value,
             color=radio_items_value2,
             opacity=0,                    
             zoom=10)
-    else:   
-        hover_name = "LOCALIDAD"
+    else:
+        hover_name = "CODIGO_SINIESTRO"
         if dropdown_value2 == []:
         
             l = df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(dropdown_value)].copy()
-            hover_name = "LOCALIDAD"
+            hover_name = "CODIGO_SINIESTRO"
             
             if (len(dropdown_value)==1):
                 zoom=12
@@ -511,30 +579,63 @@ def update_mapa(fecha_value,
                 zoom=zoom)
             
         else:
-           
+
             hover_name = "DIRECCION"
 
             if (len(dropdown_value2)==1):
                 zoom=14
             else:
                 zoom=12
-              
+            
             l = df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(
                 dropdown_value) & (df_con_hipotesis['DIRECCION'].isin(
                 dropdown_value2))].copy()
-    
-            fig = px.scatter_mapbox(l,
+            
+            try:
+                fig = px.scatter_mapbox(l,
                   lat="lat", 
                   lon="lon",
-                  hover_name=hover_name,                  
+                  hover_name="CODIGO_SINIESTRO",                  
                   color=radio_items_value2,
-                  zoom=zoom)
-                            
+                  zoom=zoom) 
+             
+            except:
+                fig = px.scatter_mapbox(l,
+                  lat="lat", 
+                  lon="lon",
+                  hover_name="CODIGO_SINIESTRO",                  
+                  zoom=zoom) 
+                             
     fig.update_layout(mapa_layout) 
     
     return fig
 
-##################################################################################################################################
+###############################################       actualizar gráfico 2     #########################################################
+
+@app.callback(
+    Output('serie', 'figure'),    
+    [Input('dropdown', 'value')],
+    [Input('dropdown3', 'value'),])
+def update_grafico3(dropdown_value, dropdown_value2):
+    
+    if (dropdown_value2 != None) & (dropdown_value2 != []):
+        df_con_hipotesis = df2[(df2['DESCRIPCION'].isin(dropdown_value2)) |
+                               (df2['DESCRIPCION2'].isin(dropdown_value2)) |
+                               (df2['DESCRIPCION3'].isin(dropdown_value2))|
+                               (df2['DESCRIPCION4'].isin(dropdown_value2))].copy()
+    else:
+        df_con_hipotesis=df2.copy()
+        
+    if (dropdown_value != None) & (dropdown_value != []):
+        df_con_hipotesis = df_con_hipotesis[df_con_hipotesis['LOCALIDAD'].isin(dropdown_value)]
+        
+    
+    fig=go.Figure([go.Scatter(x=serie_temporal2(df_con_hipotesis).index, 
+                        y=serie_temporal2(df_con_hipotesis)['Cantidad_siniestros'])])
+    fig.update_layout(layout3)   
+    
+    return  fig
+
 
 
 
