@@ -9,6 +9,9 @@ app = Flask(__name__)
 
 
 # CARGAR MODELOS
+
+
+#******************** SARIMA MODEL *********************************
 '''
 Request
 {
@@ -33,6 +36,8 @@ def predict_sarima():
     else:
         return {"message": "Utilice el método POST.", "success": False}
 
+#***********************************************************
+
 '''
 Request
 {
@@ -45,6 +50,8 @@ Response:
     "mean_prediction": ""
 }
 '''
+
+#********************* XGBOOST MODEL ***************************
 
 @app.route("/predict/generalModel", methods=["POST", "GET"])
 def predict_xgboost():
@@ -64,26 +71,11 @@ def predict_xgboost():
         except:
             response = {
                 "prediction": None,
-                "success": True
+                "success": False
             }
         return response
     else:
         return {"message": "Utilice el método POST.", "success": False}
-
-
-@app.route("/predict/v1", methods=["POST", "GET"])
-def predict_1():
-    return {"modelo": 1}
-
-
-@app.route("/predict/v2", methods=["POST", "GET"])
-def predict_2():
-    return {"modelo": 2}
-
-
-@app.route("/predict/v3", methods=["POST", "GET"])
-def predict_3():
-    return {"modelo": 3}
 
 
 @app.errorhandler(404)
