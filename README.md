@@ -99,18 +99,18 @@ python index.py
 
 ## Collaborators of the project
 
-[![](./Mobilidata_Front_End/assets/img/monica_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/0)
-[![](./Mobilidata_Front_End/assets/img/vicente_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/5)
+[![](./Mobilidata_Front_End/assets/img/monica_circle.png)](https://www.linkedin.com/in/m%C3%B3nica-ot%C3%A1lora-montenegro-603bb9108/)
+[![](./Mobilidata_Front_End/assets/img/vicente_circle.png)](https://www.linkedin.com/in/vicentecastro/)
 [![](./Mobilidata_Front_End/assets/img/johan_circle.png)](https://www.linkedin.com/in/jsquirogacloudanalyst/)
-[![](./Mobilidata_Front_End/assets/img/sheijer_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/3)
-[![](./Mobilidata_Front_End/assets/img/hector_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/4)
+[![](./Mobilidata_Front_End/assets/img/sheijer_circle.png)](https://www.linkedin.com/in/sheijers/)
+[![](./Mobilidata_Front_End/assets/img/hector_circle.png)](https://www.linkedin.com/in/florezfernandez/)
 [![](./Mobilidata_Front_End/assets/img/marcela_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/5)
-[![](./Mobilidata_Front_End/assets/img/nicolas_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/1)
+[![](./Mobilidata_Front_End/assets/img/nicolas_circle.png)](https://www.linkedin.com/in/nicolas-roldan-fajardo/)
 
-- [Mónica Otálora](http://github.com)
-- [Vicente Castro](http://github.com)
-- [Johan Quiroga](http://github.com)
-- [Sheijer Silva](http://github.com)
-- [Hector Florez](http://github.com)
-- [Marcela Garzon](http://github.com)
-- [Nicolás Roldán](http://github.com)
+- Mónica Otálora
+- Vicente Castro
+- Johan Quiroga
+- Sheijer Silva
+- Hector Florez
+- Marcela Garzon
+- Nicolás Roldán
