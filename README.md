@@ -1,6 +1,6 @@
 #
 
-<p align="center"><a href="https://modin.readthedocs.io"><img width=100% heigh="50%" alt="" src="https://raw.githubusercontent.com/Jstoqui/MobiliData_DS4A_TEAM80/main/Mobilidata_Front_End/assets/img/header_readme.jpg"></a></p>
+<p align="center"><a href="https://modin.readthedocs.io"><img width=100% heigh="50%" alt="" src="https://raw.githubusercontent.com/Jstoqui/MobiliData_DS4A_TEAM80/main/Mobilidata_Front_End/header_readme.jpg"></a></p>
 <h1 align="center">Mobilidata Code Repository</h1>
 
 ## Project Description
@@ -31,13 +31,13 @@ There are mainly 3 datasets:
 
 Mobilidata has an interactive app build with Dash-Plotly and deployed on an Compute Engine instance on Google Cloud Platform (GCP). Mobilidata app consists of four main parts, that corresponds to each dataset and another to interact with a Forecasting model based on __XGBoost__.
 
-![App](./Mobilidata_Front_End/assets/img/home_app.gif)
+![App](./readme_assets/home_app.gif)
 
 ## Data Wrangling
 
 For the data wrangling process we design an automated data pipeline which takes advantage of some services of the Google Cloud Platform. These scripts are stored in a Compute Engine instance and are executed every time that the customer adds a new source to the data lake. This process ends with the cleaned and enriched data uploaded to Big query Datasets and tables.
 
-![Data Wrangling](./Mobilidata_Front_End/assets/img/Data_Wrangling.jpg)
+![Data Wrangling](./readme_assets/Data_Wrangling.jpg)
 
 ## Modeling
 
@@ -81,7 +81,7 @@ The web application is hosted in a __Compute Engine instance__, this instance ru
 
 The application was implement with a multipage approach in which an index application made calls for another sub branches to show it in the front like we see in the figure, in addition all this sub apps consume resources from the assets folder, for the web application implementation and for every one of the dashboards we used Dash, HTML, CSS, and some JavaScript scripts and in addition we implement Bootstrap.
 
-![Infrastructure](./Mobilidata_Front_End/assets/img/Front_End_Image.jpg)
+![Infrastructure](./readme_assets/Front_End_Image.jpg)
 
 ## How to run the app
 
@@ -105,13 +105,13 @@ python index.py
 
 ## Collaborators of the project
 
-[![](./Mobilidata_Front_End/assets/img/monica_circle.png)](https://www.linkedin.com/in/m%C3%B3nica-ot%C3%A1lora-montenegro-603bb9108/)
-[![](./Mobilidata_Front_End/assets/img/vicente_circle.png)](https://www.linkedin.com/in/vicentecastro/)
-[![](./Mobilidata_Front_End/assets/img/johan_circle.png)](https://www.linkedin.com/in/jsquirogacloudanalyst/)
-[![](./Mobilidata_Front_End/assets/img/sheijer_circle.png)](https://www.linkedin.com/in/sheijers/)
-[![](./Mobilidata_Front_End/assets/img/hector_circle.png)](https://www.linkedin.com/in/florezfernandez/)
-[![](./Mobilidata_Front_End/assets/img/marcela_circle.png)](https://www.linkedin.com/in/limaga/)
-[![](./Mobilidata_Front_End/assets/img/nicolas_circle.png)](https://www.linkedin.com/in/nicolas-roldan-fajardo/)
+[![](./readme_assets/monica_circle.png)](https://www.linkedin.com/in/m%C3%B3nica-ot%C3%A1lora-montenegro-603bb9108/)
+[![](./readme_assets/vicente_circle.png)](https://www.linkedin.com/in/vicentecastro/)
+[![](./readme_assets/johan_circle.png)](https://www.linkedin.com/in/jsquirogacloudanalyst/)
+[![](./readme_assets/sheijer_circle.png)](https://www.linkedin.com/in/sheijers/)
+[![](./readme_assets/hector_circle.png)](https://www.linkedin.com/in/florezfernandez/)
+[![](./readme_assets/marcela_circle.png)](https://www.linkedin.com/in/limaga/)
+[![](./readme_assets/nicolas_circle.png)](https://www.linkedin.com/in/nicolas-roldan-fajardo/)
 
 - Mónica Otálora
 - Vicente Castro
