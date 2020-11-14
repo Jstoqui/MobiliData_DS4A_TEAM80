@@ -57,7 +57,6 @@ def predict_xgboost():
             prediction = model.predict(feat_mat_df)
             response = {
                 "prediction": {
-                    "time_index": str(list(feat_mat_df.index.array)),
                     "mean_prediction": str(list(prediction))
                 },
                 "success": True

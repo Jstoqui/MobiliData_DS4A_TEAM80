@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 from app import app
-from apps import app1, app2, app3, app4, home
+from apps import app1, app2, app3, app4, app5, home
 
 dropdown = dbc.DropdownMenu(
     children=[
@@ -94,7 +94,7 @@ def display_page(pathname):
     elif pathname == '/apps/app3':
         return app3.layout
     elif pathname == '/apps/app4':
-        return app4.layout                
+        return app5.layout                
     else:
         #return '404'
         return home.layout

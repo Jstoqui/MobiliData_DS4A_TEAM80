@@ -70,10 +70,6 @@ fig_init = go.Figure(
 predicted_data = ""
 time_data = ""
 
-# Model load
-model = joblib.load("model_xgb_gridcv.joblib")
-
-
 dash_app.layout = dbc.Container([
         html.Div([
             html.Div([
