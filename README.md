@@ -53,7 +53,7 @@ In order to make a predictive model we used two methods, one of them was the __S
 
 The final model was hosted on __Google App Engine__, serializing the trained model with joblib, and creating a REST API with __Flask microframework__ for consuming it from the front-end. The API has a POST method, predict/generalModel. The request is composed of the range of dates to predict and the response for the predicted mean and vector of timestamps generated for plotting the time signal.
 
-Request:
+__Request:__
 
 ```json
 {
@@ -62,7 +62,7 @@ Request:
 }
 ```
 
-Response:
+__Response:__
 
 ```json
 {
