@@ -1,6 +1,6 @@
 #
 
-<p align="center"><a href="https://modin.readthedocs.io"><img width=100% heigh="50%" alt="" src="https://raw.githubusercontent.com/Jstoqui/MobiliData_DS4A_TEAM80/main/Mobilidata_Front_End/header_readme.jpg"></a></p>
+<p align="center"><a href="https://modin.readthedocs.io"><img width=100% heigh="50%" alt="" src="https://raw.githubusercontent.com/Jstoqui/MobiliData_DS4A_TEAM80/main/readme_assets/header_readme.jpg"></a></p>
 <h1 align="center">Mobilidata Code Repository</h1>
 
 ## Project Description
