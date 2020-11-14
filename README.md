@@ -77,7 +77,7 @@ __Response:__
 
 ## Infrastructure diagram
 
-The web application is hosted in a Compute Engine instance, this instance runs in the same network and region where the Big query datasets are located which makes the response time faster. With every new user option selection event on the front end a SQL query is sent to the Data warehouse and it brings the queried data response.
+The web application is hosted in a __Compute Engine instance__, this instance runs in the same network and region where the __Big Query__ datasets are located which makes the response time faster. With every new user option selection event on the front end a SQL query is sent to the Data warehouse and it brings the queried data response.
 
 The application was implement with a multipage approach in which an index application made calls for another sub branches to show it in the front like we see in the figure, in addition all this sub apps consume resources from the assets folder, for the web application implementation and for every one of the dashboards we used Dash, HTML, CSS, and some JavaScript scripts and in addition we implement Bootstrap.
 
