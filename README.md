@@ -85,6 +85,12 @@ The application was implement with a multipage approach in which an index applic
 
 ## How to run the app
 
+After cloning to repo to your local machine:
+
+```bash
+cd Front_End
+```
+
 To install the dependencies:
 
 ```bash
