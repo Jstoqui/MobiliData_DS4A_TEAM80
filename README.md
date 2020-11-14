@@ -41,7 +41,7 @@ For the data wrangling process we design an automated data pipeline which takes 
 
 ## Modeling
 
-Traffic incidents are an issue that not only affects the authorities but the population in general and taking into account that the number of accidents in the city is higher in some locations and for some road actors (as mentioned in the previous section); we decided to make a model that predicts the number of traffic incidents per day based on the history period of the number of incidents found between the years 2015-2019. 
+Traffic incidents are an issue that not only affects the authorities but the population in general and taking into account that the number of accidents in the city is higher in some locations and for some road actors; we decided to make a model that predicts the number of traffic incidents per day based on the history period of the number of incidents found between the years 2015-2019. 
 
 We carry out the model for three different scenarios:
 
