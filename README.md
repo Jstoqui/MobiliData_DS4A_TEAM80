@@ -51,7 +51,9 @@ We carry out the model for three different scenarios:
 
 In order to make a predictive model we used two methods, one of them was the __SARIMAX__ model (autoregressive integrated moving average with explanatory variables), which is widely used in mobility issues, since exogenous variables can be implemented to make forecasts. Finally we implemented the XGboost algorithm (Extra Gradient boosting), by which we obtained better results. This model has advantages such as working on large databases with multiple variables -both categorical and numerical-, and admits missing values.
 
-The final model was hosted on __Google App Engine__, serializing the trained model with joblib, and creating a REST API with __Flask microframework__ for consuming it from the front-end. The API has a POST method, predict/generalModel. The request is composed of the range of dates to predict and the response for the predicted mean and vector of timestamps generated for plotting the time signal.
+The final model was hosted on __Google App Engine__, serializing the trained model with joblib, and creating a REST API with __Flask microframework__ for consuming it from the front-end. The API has a POST method, __predict/generalModel__. The request is composed of the range of dates to predict and the response for the predicted mean and vector of timestamps generated for plotting the time signal.
+
+__Endpoint:__ https://scenic-kiln-292815.ue.r.appspot.com/predict/generalModel
 
 __Request:__
 
