@@ -699,21 +699,19 @@ def update_graph1(corredor, opcion):
     if corredor=='' or corredor == None:
       fig = px.line(weekday_grouped_sum, x='date', y='speed_ponderada', color='complete_name_x', facet_col='Sentido', facet_col_wrap=2,
                     title='Velocidad ponderada de todos los tramos de todos los corredores', render_mode="webgl" ,
-                    #template = 'simple_white', 
+                    template = 'simple_white', 
                     labels={'speed_ponderada':'speed', 'date':'date','complete_name_x': 'segment'}) 
       fig.update_layout(
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'
+
       ) 
       return fig
     else: 
       fig = px.line(weekday_grouped_sum[weekday_grouped_sum['Corredor_x']==corredor], x='date', y='speed_ponderada', color='complete_name_x', facet_col='Sentido', facet_col_wrap=2,
                     title='Weigthed Speed Calculated by segments for '  + corredor, render_mode="webgl" ,
-                    #template = 'simple_white',
+                    template = 'simple_white',
                     labels={'speed_ponderada':'speed', 'date':'date','complete_name_x': 'segment'}) 
       fig.update_layout(
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'
+
       ) 
       return fig
 
@@ -721,24 +719,22 @@ def update_graph1(corredor, opcion):
     if corredor=='' or corredor == None: 
       fig = px.line(weekday_grouped_sum_hour, x='hour', y='speed_ponderada_hour', color='complete_name_x', facet_col='Sentido',
                     title='Weigthed Calculated Speed by segments for ' , render_mode="webgl", 
-                    #template = 'simple_white',
+                    template = 'simple_white',
                     labels={'Corredor_x': 'main road', 'speed_ponderada':'speed', 'date':'date','complete_name_x': 'segment'} 
                   ) 
       fig.update_layout(
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'
+
       ) 
       return fig
     else: 
       fig = px.line(weekday_grouped_sum_hour[weekday_grouped_sum_hour['Corredor_x']==corredor], x='hour', y='speed_ponderada_hour', color='complete_name_x', facet_col='Sentido', facet_col_wrap=2,
                     title='Weigthed Speed Calculated by segments for ' , render_mode="webgl",
-                    #template = 'simple_white',
+                    template = 'simple_white',
                     labels={'speed_ponderada_hour':'speed', 'hour':'hour','Corredor_x': 'main road','complete_name_x': ''},
                     height=600,
                     ) 
       fig.update_layout(
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'
+
       ) 
       return fig 
 
@@ -758,13 +754,12 @@ def update_graph2(corredor, opcion, Rango_hora):
       
       fig = px.line(weekday_grouped_sum_corredor, x='date', y='speed_ponderada_corredor', color='Corredor_x', facet_col='Sentido', facet_col_wrap=1,
                     title='Weigthed Speed Calculated for all Roads ', render_mode="webgl",
-                    #template = 'simple_white',
+                    template = 'simple_white',
                     labels={'speed_ponderada_corredor':'speed', 'date':'date', 'Corredor_x': 'main road'}, height=600)
 
       fig.update_layout(
         margin=dict(t=90,l=0,b=0,r=0),
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'        
+        
         )
       
       return fig
@@ -775,15 +770,14 @@ def update_graph2(corredor, opcion, Rango_hora):
       fig=px.line(weekday_grouped_sum_corredor[weekday_grouped_sum_corredor['Corredor_x']==corredor],
        x='date', y='speed_ponderada_corredor', color='Corredor_x', facet_col='Sentido', facet_col_wrap=1,
       title='Velocidad ponderada del corredor ' + corredor,
-      #template = 'simple_white',
+      template = 'simple_white',
       labels={'speed_ponderada_corredor':'speed', 'date':'date', 'Corredor_x': 'main road'},
       height=600
       )
 
       fig.update_layout(
         margin=dict(t=90,l=0,b=0,r=0),
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'        
+        
         )
 
       return fig
@@ -812,14 +806,13 @@ def update_graph2(corredor, opcion, Rango_hora):
 
       fig = px.line(weekday_grouped_sum_corredor_hour, x='hour', y='speed_ponderada_corredor_hour', color='Corredor_x', facet_col='Sentido',facet_col_wrap=1,
                     title='Weigthed Speed Calculated for all Roads ', render_mode="webgl",
-                    #template = 'simple_white',
+                    template = 'simple_white',
                     labels={'speed_ponderada_corredor_hour':'speed', 'hour':'Hour', 'Corredor_x': 'main road'},
                     height=600
                   )
       fig.update_layout(
         margin=dict(t=90,l=0,b=0,r=0),
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'        
+        
         )
       return fig
     else:
@@ -842,14 +835,13 @@ def update_graph2(corredor, opcion, Rango_hora):
 
       fig = px.line(weekday_grouped_sum_corredor_hour[weekday_grouped_sum_corredor_hour['Corredor_x']==corredor], x='hour', y='speed_ponderada_corredor_hour', color='Corredor_x', facet_col='Sentido', facet_col_wrap=1,
                     title='Weigthed Speed Calculated for the Corridor'+ corredor , render_mode="webgl",
-                    #template = 'simple_white',
+                    template = 'simple_white',
                     labels={'speed_ponderada_corredor_hour':'Speed', 'hour':'Hour', 'Corredor_x': 'Main Road'},
                     height=600                   
                   )
       fig.update_layout(
         margin=dict(t=90,l=0,b=0,r=0),
-        paper_bgcolor = 'rgba(0,0,0,0)',
-        plot_bgcolor = 'rgba(0,0,0,0)'        
+        
         )
     
     

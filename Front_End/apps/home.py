@@ -39,7 +39,7 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                         ]),
                         html.H4(className="title",children=[
                             #html.A("Siniestralidad")
-                            html.A("Claims")
+                            html.A("Traffic Incidents", href="/apps/Siniestros")
 
                         ]),
                         html.P("It corresponds to the set of accidents, claims and the road actors involved, additionally there is demographic information.",className="description")
@@ -51,7 +51,7 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                         ]),
                         html.H4(className="title",children=[
                             #html.A("Velocidades")
-                            html.A("Speed")
+                            html.A("Travel Speed", href="/apps/Speed")
                         ]),
                         html.P("Information corresponding to the speeds registered with bitcarrier technology in the main road corridors of the city." )
                     ]),
@@ -62,13 +62,26 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                         ]),
                         html.H4(className="title",children=[
                             #html.A("Volumenes")
-                            html.A("Volumes")
+                            html.A("Traffic Volumes", href="/apps/Volumes")
                         ]),
                         html.P("Data registered in specific places in the city, corresponding to the number of vehicles by time intervals, classified according to their category." )
-                    ])
+                    ]),
+                    html.Div(className="icon-box wow fadeInUp",children=[
+                        html.Div(className="icon",children=[
+                            #html.I(className="fa fa-photo")
+                            # html.Img(src="/assets/img/testimonial-4.jpg", className="testimonial-img", alt="")
+                        ]),
+                        html.H4(className="title",children=[
+                            #html.A("Volumenes")
+                            html.A("Prediction API model", href="/apps/Model")
+                        ]),
+                        html.P("The model allows making predictions of the number of daily traffic incidents, in order to support decision-making processes, such as evaluating the impact of implemented policies, setting goals for the reduction of traffic incidents, reducing damage, economic losses and most importantly ... Save lives" )
+                    ])                    
                 ]),
+
                 html.Div(className="col-lg-6 background order-lg-2 order-1 wow fadeInUp", children=[
-                    html.Img(src="/assets/img/mapa3.png",className="img-fluid")
+                    dbc.Row([dbc.Col()],style={'height':"90px"}),
+                    dbc.Row(html.Img(src="/assets/img/mapa3.png",className="img-fluid"))
                 ])
             ])
         ])
@@ -152,6 +165,7 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                             html.Div(className="member-info-content", children=[
                                 html.H4('Hector Florez'),
                                 html.Span('Ph.D. in Engineering'),
+                                html.Span('Data Analyst'),                                
                                 html.Div(className="social",children=[
                                     html.A(href="https://www.linkedin.com/in/florezfernandez/",children=[
                                         html.I(className="fa fa-linkedin")
@@ -167,7 +181,7 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                         html.Div(className="member-info", children=[
                             html.Div(className="member-info-content", children=[
                                 html.H4('Johan Quiroga'),
-                                html.Span('Engineer'),                                
+                                html.Span('Electronics and Systems Engineer'),                                
                                 html.Span('Project Leader'),
                                 #html.Span('Data Infraestructure Leader'),
                                 #html.Span('Data Scientist'),
@@ -192,7 +206,7 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                                 html.Span('Statistic'),                                
                                 html.Span('Data Scientist'),
                                 html.Div(className="social",children=[
-                                    html.A(href="",children=[
+                                    html.A(href="https://www.linkedin.com/in/limaga/",children=[
                                         html.I(className="fa fa-linkedin")
                                     ])
                                 ])
@@ -241,6 +255,7 @@ layout = html.Div(style={'background-image':'url(/assets/img/fondo5.png)'},child
                             html.Div(className="member-info-content", children=[
                                 html.H4('Sheijer Silva'),
                                 html.Span('MSc. Computer Science'),
+                                html.Span('Data Scientist'),                              
                                 html.Div(className="social",children=[
                                     html.A(href="https://www.linkedin.com/in/sheijers/",children=[
                                         html.I(className="fa fa-linkedin")

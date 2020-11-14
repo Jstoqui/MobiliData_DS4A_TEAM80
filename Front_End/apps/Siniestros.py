@@ -260,7 +260,7 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                 dbc.Row(style={'marginBottom': 50, 'marginTop': 0},children=[
                     dbc.Col(
                         kpi_component(
-                            header="Siniestros:",
+                            header="Traffic Incidents:",
                             body='???',
                             id_header="header3",
                             id_body="cantidad_siniestros",
@@ -268,7 +268,7 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                     ),
                     dbc.Col(
                         kpi_component(
-                            header="Fallecidos: ",
+                            header="Deceases: ",
                             body='???',
                             id_header="header2",
                             id_body="cantidad_fallecidos",
@@ -276,7 +276,7 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                     ),
                     dbc.Col(
                         kpi_component(
-                            header="Heridos: ",
+                            header="Pepople Injured: ",
                             body='???',
                             id_header="header-volume3",
                             id_body="cantidad_heridos",
@@ -284,7 +284,7 @@ layout = dbc.Container(style={'background-image':'url(/assets/img/fondo4.png)'},
                     ),
                     dbc.Col(
                         kpi_component(
-                            header="Vehículos: ",
+                            header="Vehicles: ",
                             body='???',
                             id_header="header666",
                             id_body="cantidad_vehiculos",

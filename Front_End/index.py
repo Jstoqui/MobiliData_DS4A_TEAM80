@@ -16,15 +16,15 @@ from google.cloud import bigquery
 
 
 from app import app
-from apps import  Siniestros, app3, app4, home, Speed
+from apps import  Siniestros, Volumes, Model, Home, Speed
 
 dropdown = dbc.DropdownMenu(
     children=[
-        dbc.DropdownMenuItem("Home", href="apps/home"),
-        dbc.DropdownMenuItem("Velocidades", href="/apps/Speed"),
-        dbc.DropdownMenuItem("Siniestralidad", href="/apps/Siniestros"),
-        dbc.DropdownMenuItem("Volumenes", href="/apps/app3"),
-        dbc.DropdownMenuItem("Modelo", href="/apps/app4"),        
+        dbc.DropdownMenuItem("Home", href="apps/Home"),
+        dbc.DropdownMenuItem("Travel Speed ", href="/apps/Speed"),
+        dbc.DropdownMenuItem("Traffic incidents", href="/apps/Siniestros"),
+        dbc.DropdownMenuItem("Traffic Volumes", href="/apps/Volumes"),
+        dbc.DropdownMenuItem("Prediction Model", href="/apps/Model"),        
     ],
     nav = True,
     in_navbar = True,
@@ -41,14 +41,14 @@ navbar = dbc.Navbar(
                         dbc.Col(html.Img(src="/assets/img/MobilidataS2.png", height="40px")),                        
                         dbc.Col(html.Img(src="/assets/img/Correlation.png", height="70px")),
                         #dbc.Col(dbc.NavbarBrand(" App movilidad Bogotá", className="ml-3")),
-                        dbc.Col(dbc.NavbarBrand("Bogotá Mobility Data App 1.0 ", className="ml-3")),
+                        dbc.Col(dbc.NavbarBrand("Bogotá MobiliData App 1.0 ", className="ml-3")),
                         #dbc.Col(html.Img(src="/assets/img/MobilidataS2.png", height="40px")),
                         
                     ],
                     align="center",
                     no_gutters=True,
                 ),
-                href="/home",
+                href="/Home",
             ),
             dbc.NavbarToggler(id="navbar-toggler2"),
             dbc.Collapse(
@@ -105,17 +105,17 @@ def display_page(pathname):
         return Speed.layout
     elif pathname == '/apps/Siniestros':
         return Siniestros.layout
-    elif pathname == '/apps/app3':
-        return app3.layout
-    elif pathname == '/apps/app4':
-        return app4.layout                
+    elif pathname == '/apps/Volumes':
+        return Volumes.layout
+    elif pathname == '/apps/Model':
+        return Model.layout                
     else:
         #return '404'
-        return home.layout
+        return Home.layout
 
 #if __name__ == '__main__':
 #    app.run_server(debug=True)
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
-    app.run_server(host='0.0.0.0',port='8050',debug=True)
+    app.run_server(host='0.0.0.0',port='8080',debug=False)
