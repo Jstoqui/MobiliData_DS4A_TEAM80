@@ -104,7 +104,7 @@ python index.py
 [![](./Mobilidata_Front_End/assets/img/johan_circle.png)](https://www.linkedin.com/in/jsquirogacloudanalyst/)
 [![](./Mobilidata_Front_End/assets/img/sheijer_circle.png)](https://www.linkedin.com/in/sheijers/)
 [![](./Mobilidata_Front_End/assets/img/hector_circle.png)](https://www.linkedin.com/in/florezfernandez/)
-[![](./Mobilidata_Front_End/assets/img/marcela_circle.png)](https://sourcerer.io/fame/clmnt/huggingface/transformers/links/5)
+[![](./Mobilidata_Front_End/assets/img/marcela_circle.png)](https://www.linkedin.com/in/limaga/)
 [![](./Mobilidata_Front_End/assets/img/nicolas_circle.png)](https://www.linkedin.com/in/nicolas-roldan-fajardo/)
 
 - Mónica Otálora
